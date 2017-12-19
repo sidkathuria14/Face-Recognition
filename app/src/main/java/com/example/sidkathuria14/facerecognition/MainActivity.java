@@ -1,5 +1,6 @@
 package com.example.sidkathuria14.facerecognition;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +12,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +25,7 @@ import java.io.InputStream;
 
 import static com.example.sidkathuria14.facerecognition.R.id.imageView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private FaceOverlayView mFaceOverlayView;
 public static final String TAG1 = "tag";
@@ -40,17 +42,24 @@ public static final String TAG1 = "tag";
 //
 //        Bundle extras = getIntent().getExtras();
 //        byte[] byteArray = extras.getByteArray("picture");
- byte[] byteArray = getIntent().getByteArrayExtra("picture");
+// byte[] byteArray = getIntent().getByteArrayExtra("picture");
+String input = getIntent().getStringExtra("picture");
+       Bitmap bitmap =  decodeBase64(input);
 
-        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+//        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         ImageView image = (ImageView) findViewById(R.id.imageView);
 
-     image.setImageBitmap(bmp);
+     image.setImageBitmap(bitmap);
 
-        mFaceOverlayView.setBitmap(bmp);
-        Log.d(TAG1, "onCreate: " + byteArray.length);
+        mFaceOverlayView.setBitmap(bitmap);
+//        Log.d(TAG1, "onCreate: " + byteArray.length);
 
 
+    }
+    public static Bitmap decodeBase64(String input) {
+        byte[] decodedByte = Base64.decode(input, 0);
+        return BitmapFactory
+                .decodeByteArray(decodedByte, 0, decodedByte.length);
     }
 
 
