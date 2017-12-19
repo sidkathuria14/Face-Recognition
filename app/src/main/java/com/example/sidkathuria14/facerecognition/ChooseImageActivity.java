@@ -45,22 +45,24 @@ SharedPreferences myPrefrence;
             public void onClick(View view) {
 //                Bitmap bmp = BitmapFactory.decodeFile (bitmap);
 
-//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //
 //
-//                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//                byte[] byteArray = stream.toByteArray();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
 //
 //                Log.d(TAG, "onClick: " + byteArray.length);
-                SharedPreferences myPrefrence = getSharedPreferences("myPrefs",MODE_PRIVATE);
-                SharedPreferences.Editor editor = myPrefrence.edit();
-                editor.putString("namePreferance", "mybitmap");
-                editor.putString("imagePreferance", encodeTobase64(bitmap));
-                editor.commit();
+//                SharedPreferences myPrefrence = getSharedPreferences("myPrefs",MODE_PRIVATE);
+//                SharedPreferences.Editor editor = myPrefrence.edit();
+//                editor.putString("namePreferance", "mybitmap");
+//                editor.putString("imagePreferance", encodeTobase64(bitmap));
+//                editor.commit();
+
 
 
                 Intent intent = new Intent(ChooseImageActivity.this,MainActivity.class);
-                intent.putExtra("picture",encodeTobase64(bitmap));
+//                intent.putExtra("picture",encodeTobase64(bitmap));
+                intent.putExtra("picture",byteArray);
                 startActivity(intent);
             }
         });
@@ -89,16 +91,16 @@ SharedPreferences myPrefrence;
             }
         }
     }
-    public static String encodeTobase64(Bitmap image) {
-        Bitmap immage = image;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        immage.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] b = baos.toByteArray();
-        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
-
-        Log.d("Image Log:", imageEncoded);
-        return imageEncoded;
-    }
+//    public static String encodeTobase64(Bitmap image) {
+//        Bitmap immage = image;
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        immage.compress(Bitmap.CompressFormat.PNG, 100, baos);
+//        byte[] b = baos.toByteArray();
+//        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
+//
+//        Log.d("Image Log:", imageEncoded);
+//        return imageEncoded;
+//    }
 }
 
 

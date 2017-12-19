@@ -40,27 +40,27 @@ public static final String TAG1 = "tag";
 //        InputStream stream = getResources().openRawResource(R.raw.group);
 //        Bitmap bitmap = BitmapFactory.decodeStream(stream);
 //
-//        Bundle extras = getIntent().getExtras();
-//        byte[] byteArray = extras.getByteArray("picture");
+        Bundle extras = getIntent().getExtras();
+        byte[] byteArray = extras.getByteArray("picture");
 // byte[] byteArray = getIntent().getByteArrayExtra("picture");
-String input = getIntent().getStringExtra("picture");
-       Bitmap bitmap =  decodeBase64(input);
+//String input = getIntent().getStringExtra("picture");
+//       Bitmap bitmap =  decodeBase64(input);
 
-//        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         ImageView image = (ImageView) findViewById(R.id.imageView);
 
-     image.setImageBitmap(bitmap);
+//      image.setImageBitmap(bitmap);
 
         mFaceOverlayView.setBitmap(bitmap);
-//        Log.d(TAG1, "onCreate: " + byteArray.length);
+        Log.d(TAG1, "onCreate: " + byteArray.toString());
 
 
     }
-    public static Bitmap decodeBase64(String input) {
-        byte[] decodedByte = Base64.decode(input, 0);
-        return BitmapFactory
-                .decodeByteArray(decodedByte, 0, decodedByte.length);
-    }
+//    public static Bitmap decodeBase64(String input) {
+//        byte[] decodedByte = Base64.decode(input, 0);
+//        return BitmapFactory
+//                .decodeByteArray(decodedByte, 0, decodedByte.length);
+//    }
 
 
     }
