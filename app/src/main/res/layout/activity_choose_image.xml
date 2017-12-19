@@ -12,10 +12,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
         <Button
-            android:text="detect faces"
+            android:text="detect"
             android:id="@+id/detect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/test"
+            android:text="test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/camera"
+            android:text="camera"
+            android:onClick="takeImageFromCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
     <ImageButton
         android:id="@+id/imageView"

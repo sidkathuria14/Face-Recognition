@@ -24,10 +24,11 @@ public class ChooseImageActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 234;
     private Uri filePath;
+    private static final int CAMERA_REQUEST = 1888;
     ImageView imageView;
     Bitmap bitmap;
     public static final String TAG = "Face";
-SharedPreferences myPrefrence;
+    ByteArrayOutputStream stream;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,18 +46,12 @@ SharedPreferences myPrefrence;
             public void onClick(View view) {
 //                Bitmap bmp = BitmapFactory.decodeFile (bitmap);
 
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//
-//
+               stream = new ByteArrayOutputStream();
+
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] byteArray = stream.toByteArray();
-//
-//                Log.d(TAG, "onClick: " + byteArray.length);
-//                SharedPreferences myPrefrence = getSharedPreferences("myPrefs",MODE_PRIVATE);
-//                SharedPreferences.Editor editor = myPrefrence.edit();
-//                editor.putString("namePreferance", "mybitmap");
-//                editor.putString("imagePreferance", encodeTobase64(bitmap));
-//                editor.commit();
+
+
 
 
 
@@ -66,8 +61,21 @@ SharedPreferences myPrefrence;
                 startActivity(intent);
             }
         });
+  Button button = (Button)findViewById(R.id.camera);
+
+        ((Button)findViewById(R.id.test)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ChooseImageActivity.this,Test.class));
+            }
+        });
 
     }
+    public void takeImageFromCamera(View view) {
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+    }
+
 
     private void showFileChooser() {
         Intent intent = new Intent();
@@ -75,6 +83,15 @@ SharedPreferences myPrefrence;
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
+//
+//    public byte[] ToByteArray(Bitmap bitmap){
+//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//
+//        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//        byte[] byteArray = stream.toByteArray();
+//        imageView.setImageBitmap(bitmap);
+//        return byteArray;
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -89,6 +106,21 @@ SharedPreferences myPrefrence;
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+
+             stream = new ByteArrayOutputStream();
+
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+            Log.d(TAG, "onActivityResult: " + bitmap.toString());
+
+//            Intent intent = new Intent(CameraActivity.this,MainActivity.class);
+//            intent.putExtra("picture",byteArray);
+//            startActivity(intent);
+            imageView.setImageBitmap(bitmap);
+
         }
     }
 //    public static String encodeTobase64(Bitmap image) {

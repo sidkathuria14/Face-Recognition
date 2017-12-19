@@ -10,13 +10,20 @@ import java.io.InputStream;
 
 public class Test extends AppCompatActivity {
 ImageView imageView;
+    FaceOverlayView mFaceOverlayView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.image_view);
+        setContentView(R.layout.activity_main);
+
+        mFaceOverlayView = (FaceOverlayView) findViewById(R.id.face_overlay);
         imageView = (ImageView)findViewById(R.id.imageView);
-        InputStream imageStream = getResources().openRawResource(R.raw.best);
+
+        InputStream imageStream = getResources().openRawResource(R.raw.group);
         Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
-        imageView.setImageBitmap(bitmap);
+
+//        imageView.setImageBitmap(bitmap);
+        mFaceOverlayView.setBitmap(bitmap);
+
     }
 }
